@@ -141,7 +141,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <textarea disabled={loading} placeholder="Category description" {...field} />
+                    <Textarea disabled={loading} placeholder="Category description" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
