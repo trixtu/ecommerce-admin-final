@@ -27,6 +27,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 const formSchema = z.object({
   name: z.string().min(2),
+  desc:z.string(),
   billboardId: z.string().min(1),
 });
 
@@ -56,6 +57,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: '',
+      desc:'',
       billboardId: '',
     }
   });
@@ -126,6 +128,19 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input disabled={loading} placeholder="Category name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="desc"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <textarea disabled={loading} placeholder="Category description" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
