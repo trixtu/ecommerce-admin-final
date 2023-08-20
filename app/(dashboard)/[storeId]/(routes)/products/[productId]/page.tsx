@@ -16,7 +16,7 @@ const ProductPage = async ({
     }
   });
 
-  const categories = await prismadb.subcategory.findMany({
+  const subcategories = await prismadb.subcategory.findMany({
     where: {
       storeId: params.storeId,
     },
@@ -38,7 +38,7 @@ const ProductPage = async ({
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <ProductForm 
-          categories={categories} 
+          subcategories={subcategories} 
           colors={colors}
           sizes={sizes}
           initialData={product}

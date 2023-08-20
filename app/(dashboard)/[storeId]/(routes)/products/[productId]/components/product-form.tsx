@@ -45,14 +45,14 @@ interface ProductFormProps {
   initialData: Product & {
     images: Image[]
   } | null;
-  categories: Subcategory[];
+  subcategories: Subcategory[];
   colors: Color[];
   sizes: Size[];
 };
 
 export const ProductForm: React.FC<ProductFormProps> = ({
   initialData,
-  categories,
+  subcategories,
   sizes,
   colors
 }) => {
@@ -74,7 +74,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     name: '',
     images: [],
     price: 0,
-    subcategoryId: '',
+    categoryId: '',
     colorId: '',
     sizeId: '',
     isFeatured: false,
@@ -201,7 +201,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories.map((category) => (
+                      {subcategories.map((category) => (
                         <SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>
                       ))}
                     </SelectContent>
