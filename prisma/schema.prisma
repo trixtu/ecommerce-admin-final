@@ -37,16 +37,16 @@ model Billboard {
 }
 
 model Category {
-  id            String      @id @default(uuid())
-  storeId       String      // Foreign Key to Store
-  store         Store       @relation("StoreToCategory", fields: [storeId], references: [id])
-  billboardId   String      // Foreign Key to Billboard
-  billboard     Billboard   @relation(fields: [billboardId], references: [id])
-  subcategory Subcategory[] @relation("CategoryToSubcategory")
+  id            String        @id @default(uuid())
+  storeId       String        // Foreign Key to Store
+  store         Store         @relation("StoreToCategory", fields: [storeId], references: [id])
+  billboardId   String        // Foreign Key to Billboard
+  billboard     Billboard     @relation(fields: [billboardId], references: [id])
+  subcategory   Subcategory[] @relation("CategoryToSubcategory")
   name          String
-  desc        String        @default("")
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  desc          String        @default("")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 
   @@index([storeId])
   @@index([billboardId])
@@ -72,7 +72,7 @@ model Product {
   storeId     String      // Foreign Key to Store
   store       Store       @relation("StoreToProduct", fields: [storeId], references: [id])
   categoryId  String      // Foreign Key to Category
-  category   Subcategory  @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  category    Subcategory  @relation("CategoryToProduct", fields: [categoryId], references: [id])
   name        String
   price       Decimal
   sale        String      @default("") 
