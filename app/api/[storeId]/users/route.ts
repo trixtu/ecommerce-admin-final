@@ -97,12 +97,12 @@ export async function PATCH(
 ) {
 try {
   const {
-      data: { email, vorname, nachname, idUser},
+      data: { email, vorname, nachname, id},
     } = await req.json();
 
   const user = await prismadb.user.update({
     where: {
-      id:idUser
+      id:id
     },
     data: {
       email,
