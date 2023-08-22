@@ -19,7 +19,11 @@ import prismadb from "@/lib/prismadb";
 
 export async function GET(req: Request) {
   try {
-    const users = await prismadb.user.findMany();
+    const users = await prismadb.user.findMany({
+     where:{
+      id:'7cdbea0b-236e-460e-b5c6-f294af7bd53a'
+     }
+    });
 
     return NextResponse.json(users);
   } catch (error) {
