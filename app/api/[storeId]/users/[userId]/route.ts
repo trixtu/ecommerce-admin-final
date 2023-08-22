@@ -15,7 +15,7 @@ export async function OPTIONS() {
 
 export async function PATCH(
     req: Request,
-    { params }: { params: { userId: string }}
+    { params }: { params: {storeId: string; userId: string }}
 ) {
   try {
     const body = await req.json();
@@ -38,6 +38,8 @@ export async function PATCH(
     return NextResponse.json({
         user: {
           email: user.email,
+          vorname: user.vorname,
+          nachname: user.nachname
         },
       },{headers:corsHeaders});
   } catch (error) {
