@@ -36,12 +36,9 @@ export async function PATCH(
     });
 
     return NextResponse.json({
-        user: {
-          email: user.email,
-          vorname: user.vorname,
-          nachname: user.nachname
-        },
+        user
       },{headers:corsHeaders});
+
   } catch (error) {
     console.log("[USER_PATCH]", error);
     return new NextResponse("Internal error", { status: 500 });
