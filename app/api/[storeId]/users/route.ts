@@ -89,3 +89,36 @@ export async function GET(
     return new NextResponse("Internal error", { status: 500 });
   }
 };
+
+
+export async function PATCH(
+  req: Request,
+  { params }: { params: {storeId: string;}}
+) {
+try {
+  const body = await req.json();
+
+  const {
+      data: { email, vorname, nachname, idUser},
+    } = await req.json();
+
+  const user = await prismadb.user.update({
+    where: {
+      id:idUser
+    },
+    data: {
+      email,
+      vorname,
+      nachname,
+    },
+  });
+
+  return NextResponse.json({
+      user
+    },{headers:corsHeaders});
+
+} catch (error) {
+  console.log("[USER_PATCH]", error);
+  return new NextResponse("Internal error", { status: 500 });
+}
+}
