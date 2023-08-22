@@ -14,17 +14,15 @@ export async function OPTIONS() {
 }
 
 export async function PATCH(
-  req: Request,
-  { params }: { params: { userId: string; storeId: string } }
+    req: Request,
+    { params }: { params: { userId: string }}
 ) {
   try {
     const body = await req.json();
 
-    const { email, vorname, nachname } = body;
-
-    if (!email) {
-      return new NextResponse("Email is required", { status: 400 });
-    }
+    const {
+        data: { email, vorname, nachname},
+      } = await req.json();
 
     const user = await prismadb.user.update({
       where: {
@@ -38,7 +36,9 @@ export async function PATCH(
     });
 
     return NextResponse.json({
-       user
+        user: {
+          email: user.email,
+        },
       },{headers:corsHeaders});
   } catch (error) {
     console.log("[USER_PATCH]", error);
