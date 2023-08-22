@@ -9,19 +9,20 @@ datasource db {
 }
 
 model Store {
-  id              String      @id @default(uuid())
+  id              String        @id @default(uuid())
   name            String
   userId          String
-  users           User[]      @relation("StoreToUser")
-  billboards      Billboard[] @relation("StoreToBillboard")
-  categories      Category[]  @relation("StoreToCategory")
-  subcategories Subcategory[] @relation("StoreToSubcategory")
-  products        Product[]   @relation("StoreToProduct")
-  sizes           Size[]      @relation("StoreToSize")
-  colors          Color[]     @relation("StoreToColor")
-  orders          Order[]     @relation("StoreToOrder")
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  address         Address[]     
+  users           User[]        @relation("StoreToUser")
+  billboards      Billboard[]   @relation("StoreToBillboard")
+  categories      Category[]    @relation("StoreToCategory")
+  subcategories   Subcategory[] @relation("StoreToSubcategory")
+  products        Product[]     @relation("StoreToProduct")
+  sizes           Size[]        @relation("StoreToSize")
+  colors          Color[]       @relation("StoreToColor")
+  orders          Order[]       @relation("StoreToOrder")
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 model Billboard {
@@ -184,6 +185,8 @@ model User {
 model Address {
   id        String          @id @default(uuid())
   userId    String          // Foreign Key to User
+  storeId   String
+  store     Store           @relation(fields: [storeId], references: [id])
   firma     String?
   telefon   String?
   street    String?
@@ -197,6 +200,7 @@ model Address {
   user      User            @relation("UserToAddress", fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+  @@index([storeId])
 }
 model VerificationToken {
   identifier String
