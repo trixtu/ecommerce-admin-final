@@ -90,7 +90,7 @@ export async function GET(
   }
 };
 
-export default async function handler(req:Request, res:Response ){
+export default async function handler(req:Request, res:Response,{ params }: { params: { storeId: string } } ){
   if(req.method === 'PATCH'){
     try {
       const {
@@ -99,7 +99,7 @@ export default async function handler(req:Request, res:Response ){
     
       const user = await prismadb.user.update({
         where: {
-          id:userId
+          email:email,
         },
         data: {
           email,
