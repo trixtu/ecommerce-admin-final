@@ -6,7 +6,7 @@ import { hash } from "bcrypt";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
@@ -96,8 +96,6 @@ export async function PATCH(
   { params }: { params: {storeId: string;}}
 ) {
 try {
-  const body = await req.json();
-
   const {
       data: { email, vorname, nachname, idUser},
     } = await req.json();
@@ -114,8 +112,10 @@ try {
   });
 
   return NextResponse.json({
-      user
-    },{headers:corsHeaders});
+    user: {
+      email: user.email,
+    },
+  },{headers:corsHeaders});
 
 } catch (error) {
   console.log("[USER_PATCH]", error);
