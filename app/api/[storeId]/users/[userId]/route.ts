@@ -28,7 +28,7 @@ export async function PATCH(
 
     const user = await prismadb.user.update({
       where: {
-        id: params.storeId,
+        id: params.userId,
       },
       data: {
         email,
