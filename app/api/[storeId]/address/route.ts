@@ -31,9 +31,9 @@ export async function GET(
       },
     });
 
-    return NextResponse.json(users);
+    return NextResponse.json(address);
   } catch (error) {
-    console.log("[USERS_GET]", error);
+    console.log("[ADDRESS_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
