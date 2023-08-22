@@ -171,13 +171,33 @@ model User {
   password       String
   image          String?
   active         Boolean         @default(false) // New
+  address        Address[]       @relation("UserToAddress")    
   accounts       Account[]
   sessions       Session[]
   activateTokens ActivateToken[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([storeId])
 }
 
+model Address {
+  id        String          @id @default(uuid())
+  userId    String          // Foreign Key to User
+  firma     String?
+  telefon   String?
+  street    String?
+  stadt     String?
+  postzahl  String?
+  land      String?
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+
+  user      User            @relation("UserToAddress", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
 model VerificationToken {
   identifier String
   token      String   @unique
