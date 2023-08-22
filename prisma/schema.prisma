@@ -100,8 +100,6 @@ model Order {
   storeId     String        // Foreign Key to Store
   store       Store         @relation("StoreToOrder", fields: [storeId], references: [id])
   orderItems  OrderItem[]   // Relation to OrderItem model
-  userId      String
-  user        User          @relation(fields: [userId], references: [id])
   isPaid      Boolean       @default(false)
   phone       String        @default("")
   address     String        @default("")
@@ -109,7 +107,6 @@ model Order {
   updatedAt   DateTime      @updatedAt
 
   @@index([storeId])
-  @@index([userId])
 }
 
 // Intermediary for a many-to-many relationship
@@ -175,7 +172,6 @@ model User {
   image          String?
   active         Boolean         @default(false) // New
   address        Address[]       @relation("UserToAddress") 
-  orders         Order[]   
   accounts       Account[]
   sessions       Session[]
   activateTokens ActivateToken[]
