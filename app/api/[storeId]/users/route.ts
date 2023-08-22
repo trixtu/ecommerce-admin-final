@@ -32,6 +32,8 @@ export async function POST(
       email,
       password: hashed,
       name,
+      vorname,
+      nachname,
       storeId:params.storeId
     },
   });
@@ -64,9 +66,6 @@ export async function POST(
     },
   },{headers:corsHeaders});
 }
-
-
-
 
 
 export async function GET(
