@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { headers } from "next/headers";
+import { hash } from "bcrypt";
 
 
 const corsHeaders = {
@@ -21,7 +22,7 @@ export async function POST(
     data: { email, password, vorname, nachname,name },
   } = await req.json();
 
- // const hashed = await hash(password, 12);
+  const hashed = await hash(password, 12);
 
   const API_KEY = process.env.MAILGUN_API_KEY || "";
   const DOMAIN = process.env.MAILGUN_DOMAIN || "";
@@ -29,7 +30,7 @@ export async function POST(
   const user = await prismadb.user.create({
     data: {
       email,
-      password,
+      password: hashed,
       name,
       storeId:params.storeId
     },
@@ -65,44 +66,6 @@ export async function POST(
 }
 
 
-// export async function POST(
-//   req: Request,
-//   { params }: { params: { storeId: string } }
-// ) {
-//   try {
-
-//     const body = await req.json();
-
-//     const { name,email,password } = body;
-
-//     if (!email) {
-//       return new NextResponse("Email is required", { status: 400 });
-//     }
-
-//     if (!password) {
-//       return new NextResponse("Password is required", { status: 400 });
-//     }
-
-
-//     if (!params.storeId) {
-//       return new NextResponse("Store id is required", { status: 400 });
-//     }
-
-//     const user = await prismadb.user.create({
-//       data: {
-//         email,
-//         password,
-//         name,
-//         storeId: params.storeId
-//       }
-//     });
-  
-//     return NextResponse.json({user},{headers:corsHeaders});
-//   } catch (error) {
-//     console.log('[USERS_POST]', error);
-//     return new NextResponse("Internal error", { status: 500 });
-//   }
-// };
 
 
 
