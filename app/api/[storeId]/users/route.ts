@@ -90,35 +90,33 @@ export async function GET(
   }
 };
 
-
-export async function PUT(
-  req: Request,
-  { params }: { params: {storeId: string;}}
-) {
-try {
-  const {
-      data: { email, vorname, nachname, userId},
-    } = await req.json();
-
-  const user = await prismadb.user.update({
-    where: {
-      id:userId
-    },
-    data: {
-      email,
-      vorname,
-      nachname,
-    },
-  });
-
-  return NextResponse.json({
-    user: {
-      email: user.email,
-    },
-  },{headers:corsHeaders});
-
-} catch (error) {
-  console.log("[USER_PATCH]", error);
-  return new NextResponse("Internal error", { status: 500 });
-}
+export default async function handler(req:Request, res:Response ){
+  if(req.method === 'PATCH'){
+    try {
+      const {
+          data: { email, vorname, nachname, userId},
+        } = await req.json();
+    
+      const user = await prismadb.user.update({
+        where: {
+          id:userId
+        },
+        data: {
+          email,
+          vorname,
+          nachname,
+        },
+      });
+    
+      return NextResponse.json({
+        user: {
+          email: user.email,
+        },
+      },{headers:corsHeaders});
+    
+    } catch (error) {
+      console.log("[USER_PATCH]", error);
+      return new NextResponse("Internal error", { status: 500 });
+    }
+  }
 }
