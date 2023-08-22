@@ -1,20 +1,44 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 
-// export async function POST(req: Request,) {
-//   try {
-//     const body = await req.json();
+export async function POST(
+  req: Request,
+  { params }: { params: { storeId: string } }
+) {
+  try {
 
-//     const {  } = body;
+    const body = await req.json();
 
-//     const storeByUserId = await prismadb.user.findMany();
+    const { name,email,password } = body;
 
-//     return NextResponse.json();
-//   } catch (error) {
-//     console.log('[CATEGORIES_POST]', error);
-//     return new NextResponse("Internal error", { status: 500 });
-//   }
-// };
+    if (!email) {
+      return new NextResponse("Email is required", { status: 400 });
+    }
+
+    if (!password) {
+      return new NextResponse("Password is required", { status: 400 });
+    }
+
+
+    if (!params.storeId) {
+      return new NextResponse("Store id is required", { status: 400 });
+    }
+
+    const user = await prismadb.user.create({
+      data: {
+        email,
+        password,
+        name,
+        storeId: params.storeId
+      }
+    });
+  
+    return NextResponse.json(user);
+  } catch (error) {
+    console.log('[USERS_POST]', error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+};
 
 export async function GET(
   req: Request,
