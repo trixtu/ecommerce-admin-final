@@ -35,6 +35,36 @@ export async function GET(
   }
 }
 
+export async function POST(
+  req:Request,
+  { params }: { params: { storeId: string }}
+) {
+  const {
+    data: {firma,land,postzahl,stadt,street,telefon,userId },
+  } = await req.json();
+
+  const address = await prismadb.address.create({
+    data: {
+      firma,
+      land,
+      postzahl,
+      stadt,
+      street,
+      telefon,
+      userId,
+      storeId:params.storeId
+    },
+  });
+
+  return NextResponse.json({
+    address: {
+      userId: address.userId,
+    },
+  },{headers:corsHeaders});
+}
+
+
+
 export async function PATCH(
   req: Request,
   { params }: { params: { storeId: string } }
