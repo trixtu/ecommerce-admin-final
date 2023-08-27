@@ -7,11 +7,17 @@ import { Home } from "lucide-react";
 import { Settings } from 'lucide-react';
 import { Stamp } from 'lucide-react';
 
+type Props = {
+    collapsed: boolean
+    className: string
+}
+
 
 export function MainSidebar({
     className,
+    collapsed,
     ...props
-}: React.HTMLAttributes<HTMLElement>) {
+}: Props) {
     const pathname = usePathname();
     const params = useParams();
 
@@ -76,6 +82,9 @@ export function MainSidebar({
 
     return (
         <>
+            <div className="flex items-center">
+                <h2 className="text-xl font-bold">Dashboard</h2>
+            </div>
             <ul
                 className={cn("pt-2 pb-4 space-y-1 text-base text-black", className)}
                 {...props}

@@ -3,8 +3,9 @@ import { auth } from '@clerk/nextjs';
 
 import Navbar from '@/components/navbar'
 import prismadb from '@/lib/prismadb';
-import { Alert } from "flowbite-react";
+
 import Sidebar from '@/components/sidebar';
+import Layout from '@/components/Layout';
 
 
 export default async function DashboardLayout({
@@ -31,15 +32,10 @@ export default async function DashboardLayout({
     redirect('/');
   };
 
+
   return (
     <>
-      <div className="h-screen flex flex-row justify-start">
-        <Sidebar />
-        <div className="flex-1">
-          <Navbar />
-          {children}
-        </div>
-      </div>
+      <Layout parameter={children} params={params.storeId} />
     </>
   );
 };

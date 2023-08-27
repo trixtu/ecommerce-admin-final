@@ -24,9 +24,6 @@ const Navbar = async () => {
     <div className="border-b bg-white shadow-sm">
       <div className="flex h-16 items-center px-4">
         <div className=" flex items-center space-x-4">
-          <Button className="lg:hidden">
-            <AlignJustify />
-          </Button>
           <StoreSwitcher items={stores} />
         </div>
         <div className="ml-auto flex items-center space-x-4">
