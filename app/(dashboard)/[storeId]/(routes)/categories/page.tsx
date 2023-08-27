@@ -30,7 +30,7 @@ const CategoriesPage = async ({
   }));
 
   return (
-    <div className="flex-col">
+    <div className="container mx-auto mt-12">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <CategoriesClient data={formattedCategories} />
       </div>

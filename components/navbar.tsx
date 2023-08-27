@@ -2,9 +2,10 @@ import { UserButton, auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import StoreSwitcher from "@/components/store-switcher";
-import { MainNav } from "@/components/main-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import prismadb from "@/lib/prismadb";
+import { Button } from "./ui/button";
+import { AlignJustify } from 'lucide-react';
 
 const Navbar = async () => {
   const { userId } = auth();
@@ -19,11 +20,15 @@ const Navbar = async () => {
     }
   });
 
-  return ( 
-    <div className="border-b">
+  return (
+    <div className="border-b bg-white shadow-sm">
       <div className="flex h-16 items-center px-4">
-        <StoreSwitcher items={stores} />
-        <MainNav className="mx-6" />
+        <div className=" flex items-center space-x-4">
+          <Button className="lg:hidden">
+            <AlignJustify />
+          </Button>
+          <StoreSwitcher items={stores} />
+        </div>
         <div className="ml-auto flex items-center space-x-4">
           <ThemeToggle />
           <UserButton afterSignOutUrl="/" />
@@ -32,5 +37,5 @@ const Navbar = async () => {
     </div>
   );
 };
- 
+
 export default Navbar;

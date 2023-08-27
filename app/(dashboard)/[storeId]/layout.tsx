@@ -3,6 +3,9 @@ import { auth } from '@clerk/nextjs';
 
 import Navbar from '@/components/navbar'
 import prismadb from '@/lib/prismadb';
+import { Alert } from "flowbite-react";
+import Sidebar from '@/components/sidebar';
+
 
 export default async function DashboardLayout({
   children,
@@ -17,12 +20,12 @@ export default async function DashboardLayout({
     redirect('/sign-in');
   }
 
-  const store = await prismadb.store.findFirst({ 
+  const store = await prismadb.store.findFirst({
     where: {
       id: params.storeId,
       userId,
     }
-   });
+  });
 
   if (!store) {
     redirect('/');
@@ -30,8 +33,13 @@ export default async function DashboardLayout({
 
   return (
     <>
-      <Navbar />
-      {children}
+      <div className="h-screen flex flex-row justify-start">
+        <Sidebar />
+        <div className="flex-1">
+          <Navbar />
+          {children}
+        </div>
+      </div>
     </>
   );
 };
