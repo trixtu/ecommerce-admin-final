@@ -14,16 +14,16 @@ const SubcategoryPage = async ({
   });
 
   const categories = await prismadb.category.findMany({
-    where:{
-        storeId:params.storeId
+    where: {
+      storeId: params.storeId
     }
   })
-  return <div className=" flex-col">
-    <div className="flex-1 space-y-4 p-8 pt-6">
-        <SubcategoryForm
-         categories={categories} 
-         intialData={subcategory}
-        />
+  return <div className="flex-1 items-center w-screen md:w-full shadow-sm">
+    <div className="space-y-4 p-8 pt-6">
+      <SubcategoryForm
+        categories={categories}
+        intialData={subcategory}
+      />
     </div>
   </div>;
 };

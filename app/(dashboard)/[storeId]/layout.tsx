@@ -30,8 +30,6 @@ export default async function DashboardLayout({
 
 
   return (
-    <>
-      <Layout parameter={children} params={params.storeId} />
-    </>
+    <Layout parameter={children} params={params.storeId} />
   );
 };

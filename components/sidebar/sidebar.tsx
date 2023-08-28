@@ -1,13 +1,11 @@
-import React, { useRef } from 'react';
-import classNames from 'classnames';
-import Link from 'next/link';
+import React from 'react';
+import classNames from 'classnames'
 import Image from 'next/image';
 import NavItemDefault, { NavItem } from './defaultNavItems';
 import {
     ChevronDoubleLeftIcon,
     ChevronDoubleRightIcon,
 } from '@heroicons/react/24/outline';
-import { UserButton } from '@clerk/nextjs';
 
 // add NavItem prop to component prop
 type Props = {
@@ -16,15 +14,24 @@ type Props = {
     setCollapsed(collapsed: boolean): void;
     shown: boolean;
     params: any
+    showSubMenu: boolean;
+    showSidebar: boolean
+    setShowSubMenu(showSubMenu: boolean): void
+    setShowSidebar(showSidebar: boolean): void
 };
 const Sidebar = ({
     params,
     collapsed,
     shown,
     setCollapsed,
+    setShowSubMenu,
+    showSubMenu,
+    setShowSidebar,
+    showSidebar
 }: Props) => {
     const Icon = collapsed ? ChevronDoubleRightIcon : ChevronDoubleLeftIcon;
     return (
+
         <div
             className={classNames({
                 'bg-indigo-700 text-zinc-50 fixed md:static md:translate-x-0 z-20': true,
@@ -51,13 +58,21 @@ const Sidebar = ({
                         <Image src="/images/trixtu.png" alt="logo" width={100} height={30} />
                     </span>}
                     <button
-                        className="grid place-content-center hover:bg-indigo-800 w-10 h-10 rounded-full opacity-0 md:opacity-100"
+                        className="grid place-content-center hover:bg-indigo-800 w-10 h-10 rounded-full"
                         onClick={() => setCollapsed(!collapsed)}
                     >
                         <Icon className="w-5 h-5" />
                     </button>
                 </div>
-                <NavItemDefault collapsed={collapsed} className='' params={params} />
+                <NavItemDefault
+                    collapsed={collapsed}
+                    className=''
+                    params={params}
+                    setShowSubMenu={setShowSubMenu}
+                    showSubMenu={showSubMenu}
+                    setShowSidebar={setShowSidebar}
+                    showSidebar={showSidebar}
+                />
                 {/* <nav className="flex-grow">
                     <ul
                         className={classNames({
@@ -109,6 +124,7 @@ const Sidebar = ({
                 </div> */}
             </div>
         </div>
+
     );
 };
 export default Sidebar;

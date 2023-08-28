@@ -13,9 +13,9 @@ const BillboardPage = async ({
     }
   });
 
-  return ( 
-    <div className="flex-col">
-      <div className="flex-1 space-y-4 p-8 pt-6">
+  return (
+    <div className="flex-1 items-center w-screen md:w-full shadow-sm">
+      <div className="space-y-4 p-8 pt-6">
         <BillboardForm initialData={billboard} />
       </div>
     </div>
