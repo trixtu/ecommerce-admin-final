@@ -163,7 +163,6 @@ model User {
   id             String          @id @default(uuid())
   storeId        String          // Foreign Key to Store
   store          Store           @relation("StoreToUser", fields: [storeId],references: [id])
-  stripeCustomerId String?       @unique
   name           String?
   anrede         String?
   vorname        String?
@@ -172,7 +171,7 @@ model User {
   emailVerified  DateTime?
   password       String
   image          String?
-  isActive       Boolean         @default(false) // New
+  active       Boolean         @default(false) // New
   address        Address[]       @relation("UserToAddress") 
   accounts       Account[]
   sessions       Session[]
