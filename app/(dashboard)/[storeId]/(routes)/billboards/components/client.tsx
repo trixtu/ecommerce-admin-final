@@ -30,10 +30,12 @@ export const BillboardClient: React.FC<BillboardClientProps> = ({
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey="label" columns={columns} data={data} />
-      <Heading title="API" description="API Calls for Billboards" />
-      <Separator />
-      <ApiList entityName="billboards" entityIdName="billboardId" />
+      <div className="bg-white px-4 rounded-sm border shadow-sm">
+        <DataTable searchKey="label" columns={columns} data={data} />
+        <Heading title="API" description="API Calls for Billboards" />
+        <Separator />
+        <ApiList entityName="billboards" entityIdName="billboardId" />
+      </div>
     </>
   );
 };

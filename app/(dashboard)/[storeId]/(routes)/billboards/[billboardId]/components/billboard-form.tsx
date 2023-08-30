@@ -27,7 +27,7 @@ import ImageUpload from "@/components/ui/image-upload"
 
 const formSchema = z.object({
   label: z.string().min(1),
-  imageUrl: z.string().min(1),
+  imageUrl: z.string(),
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>
@@ -93,13 +93,13 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
 
   return (
     <>
-    <AlertModal 
-      isOpen={open} 
-      onClose={() => setOpen(false)}
-      onConfirm={onDelete}
-      loading={loading}
-    />
-     <div className="flex items-center justify-between">
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={loading}
+      />
+      <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
         {initialData && (
           <Button
@@ -113,18 +113,19 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         )}
       </div>
       <Separator />
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-          <FormField
+      <div className="bg-white p-4 rounded-sm border shadow-sm">
+        <Form {...form} >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+            <FormField
               control={form.control}
               name="imageUrl"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Background image</FormLabel>
+                  <FormLabel>Image</FormLabel>
                   <FormControl>
-                    <ImageUpload 
-                      value={field.value ? [field.value] : []} 
-                      disabled={loading} 
+                    <ImageUpload
+                      value={field.value ? [field.value] : []}
+                      disabled={loading}
                       onChange={(url) => field.onChange(url)}
                       onRemove={() => field.onChange('')}
                     />
@@ -133,26 +134,27 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                 </FormItem>
               )}
             />
-          <div className="md:grid md:grid-cols-3 gap-8">
-            <FormField
-              control={form.control}
-              name="label"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Label</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} placeholder="Billboard label" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <Button disabled={loading} className="ml-auto" type="submit">
-            {action}
-          </Button>
-        </form>
-      </Form>
+            <div className="md:grid md:grid-cols-3 gap-8">
+              <FormField
+                control={form.control}
+                name="label"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Label</FormLabel>
+                    <FormControl>
+                      <Input disabled={loading} placeholder="Billboard label" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button disabled={loading} className="ml-auto" type="submit">
+              {action}
+            </Button>
+          </form>
+        </Form>
+      </div>
     </>
   );
 };

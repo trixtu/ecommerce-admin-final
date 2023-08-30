@@ -24,12 +24,18 @@ export default async function DashboardLayout({
     }
   });
 
+  const stores = await prismadb.store.findMany({
+    where: {
+      userId,
+    }
+  });
+
   if (!store) {
     redirect('/');
   };
 
 
   return (
-    <Layout parameter={children} params={params.storeId} />
+    <Layout parameter={children} params={params.storeId} stores={stores} />
   );
 };
