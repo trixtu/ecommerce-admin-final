@@ -171,7 +171,7 @@ model User {
   emailVerified  DateTime?
   password       String
   image          String?
-  active       Boolean         @default(false) // New
+  active         Boolean         @default(false) // New
   address        Address[]       @relation("UserToAddress") 
   accounts       Account[]
   sessions       Session[]
